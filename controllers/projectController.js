@@ -21,6 +21,8 @@ const getSignleProject = async (req, res) => {
   if (!project) {
     return res.status(404).json({ error: "No project found" });
   }
+
+  res.status(200).json(project);
 };
 
 //POST a new porject

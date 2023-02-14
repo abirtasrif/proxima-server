@@ -41,11 +41,44 @@ const postProject = async (req, res) => {
 };
 
 //DELETE a project
+const deleteProject = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "Id is not valid" });
+  }
+
+  const project = await Project.findOneAndDelete({ _id: id });
+
+  if (!project) {
+    return res.status(400).json({ error: "No project found" });
+  }
+
+  res.status(200).json(project);
+};
 
 //UPDATE a project
+
+const updateProject = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "Id is not valid" });
+  }
+
+  const project = await Project.findOneAndUpdate({ _id: id }, { ...req.body });
+
+  if (!project) {
+    return res.status(400).json({ error: "No project found" });
+  }
+
+  res.status(200).json(project);
+};
 
 module.exports = {
   postProject,
   getAllProjects,
   getSignleProject,
+  deleteProject,
+  updateProject,
 };

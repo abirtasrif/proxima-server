@@ -2,7 +2,7 @@ const express = require("express");
 const {
   postProject,
   getAllProjects,
-  getSignleProject,
+  getSingleProject,
   deleteProject,
   updateProject,
 } = require("../controllers/projectController");
@@ -14,7 +14,7 @@ const router = express.Router();
 router.get("/", getAllProjects);
 
 // GET a single project
-router.get("/:id", getSignleProject);
+router.get("/:id", getSingleProject);
 
 // POST a new project
 router.post("/", postProject);

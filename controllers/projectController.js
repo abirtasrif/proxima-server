@@ -3,7 +3,8 @@ const Project = require("../models/projectModel");
 
 //get all projects
 const getAllProjects = async (req, res) => {
-  const projects = await Project.find({}).sort({ createdAt: -1 }); // descending new project at top;
+  const user_id = req.user._id;
+  const projects = await Project.find({ user_id }).sort({ createdAt: -1 }); // descending new project at top;
 
   res.status(200).json(projects);
 };
@@ -62,8 +63,10 @@ const postProject = async (req, res) => {
   }
 
   try {
+    const user_id = req.user._id;
     const project = await Project.create({
       ...req.body,
+      user_id,
     });
 
     res.status(200).json(project);
